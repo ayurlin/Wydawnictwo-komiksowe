@@ -1,0 +1,6 @@
+<%= form_for(@editor) do |f| %>
+  <%= f.label 'content', "Zmień treść #{@editor.name}", class: 'change-editor-title' %>
+  <%= f.bootsy_area :content, editor_options: { image: false } %>
+
+  <%= f.submit('Zapisz tekst', class: 'btn btn-success') %>
+<% end %>

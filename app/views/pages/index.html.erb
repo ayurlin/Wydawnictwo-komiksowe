@@ -1,0 +1,74 @@
+<div class='row'>
+  <% if Slide.count > 0 %>
+    <div class='col-sm-12'>
+      <div id='carousel' class='carousel slide' data-ride='carousel' data-interval='5000'>
+        <ol class='carousel-indicators'>
+          <% @slides.each_with_index do |slide, index| %>
+            <li data-target="#carousel" data-slide-to="<%= index %>" class="<% if index == 0 %> active <% end %>"></li>
+          <% end %>
+        </ol>
+        <div class='carousel-inner' role='listbox'>
+          <% @slides.each_with_index do |slide, index| %>
+            <div class="item <% if index == 0 %> active <% end %> ">
+              <% if slide.link.blank? %>
+                <%= image_tag(slide.image) %>
+              <% else %>
+                <%= link_to "#{slide.link}" do %>
+                  <%= image_tag(slide.image) %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% elsif Slide.count == 0 %>
+    <div class='row slider-row'>
+    </div>
+  <% end %>
+</div>
+<div class='row'>
+  <div class='col-xs-6 two-in-row-book-container'>
+    <p class='section-title'>Zapowiedzi</p>
+    <% for book in @announcement_books %>
+      <div class='col-sm-6'>
+        <%=link_to book, class: 'cover' do %>
+          <%= image_tag book.cover.url(:thumb) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class='col-xs-6'>
+    <p class='section-title'>Nowości</p>
+    <% @new_books.each do |book| %>
+      <div class='col-sm-4 col-xs-12 small-book-container'>
+        <%=link_to book, class: 'cover' do %> 
+          <%= image_tag book.cover.url(:thumb) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class='row series'>
+  <div class='col-sm-12'>
+    <p class='section-title'>Serie</p>
+    <% @displayed_series.each do |series| %>
+      <ul class='series-list'>
+        <li>
+          <%= link_to by_series_path(id: series.name.parameterize), class: 'series-title' do %>
+            <%= series.name %>
+            <% unless series.icon.blank? %>
+              <%= image_tag(series.icon, class: 'series-icon pull-left') %>
+            <% end %>
+          <% end %>
+          <p><%= series.description %></p>
+          <% series.books.each do |book| %>
+            <%=link_to book, class: 'cover' do %>
+              <%= image_tag book.cover.url(:thumb) %>
+            <% end %>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</div>

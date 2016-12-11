@@ -1,0 +1,41 @@
+<div class='row'>
+  <% @slides.each do |slide| %>
+    <div class='col-sm-12 single-slide'>
+      <div><%= image_tag(slide.image) %></div>
+      <span><u><%= slide.link %></u></span>
+      <span>od: <%= slide.start_at %></span>
+      <span>do: <%= slide.end_at %></span>
+      <%= link_to 'Edit', slide_show_url(slide), class: 'btn btn-primary' %>
+      <%= link_to 'Destroy', slide, method: :delete, data: { confirm: 'Czy na pewno chcesz usunąć obrazek?' }, class: 'btn btn-danger' %>
+    </div>
+  <% end %>
+</div>
+
+<div class='row'>
+  <div class='col-sm-12'>
+    <%= form_for @slide do |f| %>
+      <% if @slide.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@slide.errors.count, "error") %> prohibited this slide from being saved:</h2>
+          <ul>
+          <% @slide.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <h3><%= f.label 'image', 'Wybierz obrazek' %></h3>
+      <p>Wymiary 820x300</p>
+      <%= f.file_field :image %>
+      <h4>Podlinkuj obrazek:</h4>
+      <p>Wpisz pełny adres strony np <mark>https://www.example.pl/</mark></p>
+      <%= f.text_field :link %>
+      <h4>Wybierz kiedy ma być widoczny obrazek:</h4>
+      <p>od: </p><%= f.date_select :start_at %>
+      <p>do: </p><%= f.date_select :end_at, {:include_blank => true, :default => nil} %>
+
+      <%= f.submit('Dodaj obrazek', class: 'btn btn-success') %>
+    <% end %>
+  </div>
+</div>

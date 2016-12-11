@@ -1,0 +1,15 @@
+<% @authors_books.each do |book| %>
+  <div class='col-sm-4 col-xs-6 book-container'>
+    <div class='cover'>
+      <%=link_to book, class: 'cover' do %>
+        <%= image_tag book.cover.url(:thumb) %>
+      <% end %>
+    </div>
+    <div class='book-info'>
+      <p class='book-title'>
+        <%= link_to book.title, book %>
+      </p>
+      <p class='release-date'>Data premiery <%= book.premiere_as_date %></p>
+    </div>
+  </div>
+<% end %>

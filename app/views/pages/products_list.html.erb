@@ -1,0 +1,37 @@
+<% if @results %>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <%= paginate @results %>
+    </div>
+  </div>
+<% end %>
+<div class='row'>
+  <% (@results || @books).each do |book| %>
+    <div class='col-sm-4 col-xs-6 book-container'>
+      <div class='cover'>
+        <%=link_to book, class: 'cover' do %>
+          <%= image_tag book.cover.url(:thumb) %>
+        <% end %>
+      </div>
+      <div class='book-info'>
+        <p class='book-title'>
+          <%= link_to book.title, book %>
+        </p>
+        <% book.authors.each do |author| %>
+          <%= link_to autor_path(id: author.parameterize), class: 'author-link' do %>
+            <%= author %>
+          <% end %>
+        <% end %>
+        <p class='release-date'>Data premiery <%= book.premiere_as_date %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @results %>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <%= paginate @results %>
+    </div>
+  </div>
+<% end %>

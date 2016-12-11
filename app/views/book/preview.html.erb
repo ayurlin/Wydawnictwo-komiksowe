@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="<%= @book.preview_path %>" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(function() {
+      jQuery(document).triggerHandler('elibri:preview:started'); 
+      jQuery(document).bind('elibri:preview:closed', function() {
+        window.top.closeElibriPreview('<%= @book.id %>');
+        });
+      window.top.showElibriPreview('<%= @book.id %>');
+    });
+  </script>
+  <link href="//p.elibri.com.pl/graph.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+</body>
+</html>

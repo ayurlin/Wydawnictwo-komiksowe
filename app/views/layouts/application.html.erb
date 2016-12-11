@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= @meta.title.strip %></title>
+    <%= tag(:meta, name: "keywords", content: @meta.keywords.strip) %>
+    <%= tag(:meta, name: "description", content: @meta.description.strip) %>
+
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+
+    <link rel="icon" type="image/vnd.microsoft.icon"
+         href="/favicon.ico" />
+  </head>
+
+  <body>
+    <div class='container'>
+      <%= render 'layouts/messages' %>
+      <%= render 'pages/header' %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

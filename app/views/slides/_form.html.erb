@@ -1,0 +1,23 @@
+<%= form_for @slide do |f| %>
+    <% if @slide.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@slide.errors.count, "error") %> prohibited this slide from being saved:</h2>
+        <ul>
+        <% @slide.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class='single-slide'>
+      <div><%= image_tag(slide.image) %></div>
+    </div>
+    <h3><%= f.label 'image', 'Zmień obrazek' %></h3>
+    <%= f.file_field :image %>
+    <h4>Podlinkuj obrazek:</h4>
+    <%= f.text_field :link, placeholder:"#{slide.link}" %>
+    <p>od: </p><%= f.date_select :start_at %>
+    <p>do: </p><%= f.date_select :end_at %>
+
+    <%= f.submit('Zapisz', class: 'btn btn-success') %>
+  <% end %>

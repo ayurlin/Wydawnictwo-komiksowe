@@ -1,0 +1,11 @@
+update_pick_up_list:
+  cron: "0 7 * * *"
+  class: UpdatePickUpPoints
+  queue: normal
+  description: "update the lists of pick up points (Ruch, Inpost)"
+
+build_es_suggest_index:
+  cron: "0 4 * * *"
+  class: BuildEsSuggestIndex
+  queue: normal
+  description: "rebuild the suggestion index"

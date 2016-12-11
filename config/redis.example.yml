@@ -1,0 +1,16 @@
+config: &config
+  host: localhost
+  port: 6379
+  db: 9
+
+test:
+  host: localhost
+  port: 6379
+  db: 1
+
+development:
+  <<: *config
+production:
+  <<: *config
+staging:
+  <<: *config

@@ -1,0 +1,32 @@
+<div class='row'>
+  <% @editors.each do |editor| %>
+    <div class='col-sm-12 editor-admin-list'>
+      <h4><%= editor.name %>
+      <p><%= raw(editor.content) %></p>
+      <%= link_to 'Edit', edit_editor_path(editor), class: 'btn btn-primary' %>
+      <%= link_to 'Destroy', editor, method: :delete, data: { confirm: 'Czy na pewno chcesz usunąć tekst?'}, class: 'btn btn-danger' %>
+    </div>
+  <% end %>
+</div>
+
+<div class='row'>
+  <div class='col-sm-12 editor-window'>
+    <%= form_for(@editor) do |f| %>
+      <% if @editors.count == 0 %>
+        <%= f.select(:name, options_for_select([['Foreign rights', 'Foreign Rights'],['Kontakt', 'Kontakt']])) %>
+        <%= f.bootsy_area :content, editor_options: { image: false } %>
+        <%= f.submit('Utwórz tekst', class: 'btn btn-success') %>
+      <% elsif Editor.exists?(name: 'Kontakt') && !Editor.exists?(name: 'Foreign Rights') %>
+        <h4>Dodaj treść strony Foreign Rights</h4>
+        <%= f.select(:name, options_for_select([['Foreign rights', 'Foreign Rights']])) %>
+        <%= f.bootsy_area :content, editor_options: { image: false } %>
+        <%= f.submit('Utwórz tekst', class: 'btn btn-success') %>
+      <% elsif Editor.exists?(name: 'Foreign Rights') && !Editor.exists?(name: 'Kontakt') %>
+        <h4>Dodaj treść strony Kontakt</h4>
+        <%= f.select(:name, options_for_select([['Kontakt', 'Kontakt']])) %>
+        <%= f.bootsy_area :content, editor_options: { image: false } %>
+        <%= f.submit('Utwórz tekst', class: 'btn btn-success') %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

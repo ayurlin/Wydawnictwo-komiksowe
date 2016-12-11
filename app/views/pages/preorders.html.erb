@@ -1,0 +1,14 @@
+<div class='row'>
+  <% @announcement_books.each do | book | %>
+    <div class='col-sm-4 col-xs-6 book-container'>
+      <div class='cover'>
+        <%=link_to (image_tag (book.cover.url(:thumb))), book, class: 'cover' %>
+      </div>
+      <div class='book-info'>
+        <p class='book-title'><%= link_to book.title, book %></p>
+        <p class='book-author'><%= book.authors.join(', ') %></p>
+        <p class='release-date'>Data premiery <%= book.premiere_as_date %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

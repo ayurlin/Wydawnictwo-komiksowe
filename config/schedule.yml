@@ -1,0 +1,5 @@
+import_products:
+  cron: "7 */3 * * *"
+  class: ImportProductsJob
+  queue: normal
+  description: "Import products from eLibri"

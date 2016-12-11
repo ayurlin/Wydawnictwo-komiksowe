@@ -1,0 +1,30 @@
+<h3>Dodane serie</h3>
+<ul class='displayed-series-list'>
+  <% @displayed_series.each do |series| %>
+    <li>
+      <% unless series.icon.blank? %>
+        <%= image_tag(series.icon, class: 'series-icon') %>
+      <% end %>
+      <h4><u><%= series.name %></u></h4>
+      <p><span>pozycja na liście <b><%= series.position %></b></p>
+      <p><%= series.description %></p>
+      <%= link_to 'Edit', edit_series_path(series), class: 'btn btn-primary' %>
+      <%= link_to 'Destroy', series, method: :delete, data: { confirm: 'Czy na pewno chcesz usunąć serię?'}, class: 'btn btn-danger' %>
+    </li>
+  <% end %>
+</ul>
+
+<div class='row'>
+  <div class='col-sm-12 series-form'>
+    <%= form_for(@series) do |f| %>
+      <p>Wybierz serię:</p>
+      <%= f.select :name, options_for_select(@series_list) %>
+      <p>Dodaj logo serii</p>
+      <%= f.file_field :icon %>
+      <p>Pozycja na liście:</p>
+      <%= f.number_field :position %>
+      <p>Dodaj opis serii:</p>
+      <%= f.text_area :description %>
+      <%= f.submit('Dodaj serię', class: 'btn btn-success') %>
+    <% end %>
+</div>

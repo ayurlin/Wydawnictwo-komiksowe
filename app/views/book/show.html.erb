@@ -1,0 +1,44 @@
+<div class='row single-product-page'>
+  <div class='col-sm-4 single-column'>
+
+    <%= link_to @book.cover.url(:big), data: { toggle: "lightbox", gallery: "product" } do %>
+      <%= image_tag(@book.cover.url(:thumb), class: 'cover', alt: @book.title) %>
+    <% end %>
+
+    <% if @book.has_preview? %>
+      <div class="see-more-btn">
+        <a class="book-preview" data-id="<%= @book.id %>" data-path="<%= preview_path(@book) %>" href="#">
+          <img alt="" class="img-responsive pull-left" src="/see_more_icon.png">
+          <p>ZOBACZ W ŚRODKU</p>
+        </a>
+      </div>
+    <% end %>
+    <p class='title'><%= @book.title %></p>
+    <p><%= @book.subtitle %></p>
+  </div>
+  <div class='col-sm-4 text-left'>
+    <p class='section-title'><%= @book.title %></p>
+    <p class='author'><%= @book.authors.join(', ') %></p>
+    <% if @book.original_title.present? %>
+      <p class='grey'>tytuł oryginalny: <%= @book.original_title %></p>
+    <% end %>
+    <%= raw @book.description %>
+    <div class='info-section'>
+      <p class='section-title'>Informacje</p>
+      <p>Data wydania: <%= @book.premiere_as_date %></p>
+      <p>Format: <%= @book.cover_type%> <%= @book.size %></p>
+      <p>Ilość stron: <%= @book.number_of_pages %></p>
+      <p>Cena: <%= @book.cover_gross_price_as_float %> zł</p>
+      <p>ISBN: <%= @book.ean %></p>
+    </div>
+  </div>
+  <div class='col-sm-4 single-column'>
+    <% @book.book_images.each do |image| %>
+      <div style='margin-bottom: 8px;'>
+        <%= link_to image.file.url(:big), data: { toggle: "lightbox", gallery: "product" } do %>
+          <%= image_tag(image.file.url(:thumb), class: 'cover', alt: "plansza komiksu") %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
